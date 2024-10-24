@@ -20,7 +20,7 @@ CREATE TABLE account (
 	FOREIGN KEY(id_client) REFERENCES Client(id)
 );
 
-CREATE TYPE new_insurance_enum AS ENUM (  -- BIEN METTRE EN MAJ POUR L'ENUM DANS LA BDD
+CREATE TYPE insurance_enum AS ENUM (  -- BIEN METTRE EN MAJ POUR L'ENUM DANS LA BDD
     'HOME_INS', 
     'HEALTH_INS', 
     'LIFE_INS', 
