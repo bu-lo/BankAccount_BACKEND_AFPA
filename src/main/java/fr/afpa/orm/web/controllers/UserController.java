@@ -8,17 +8,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.afpa.orm.entities.User;
+import fr.afpa.orm.repositories.UserRepository;
 import fr.afpa.orm.services.UserService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequestMapping("/users")
 @RestController
 public class UserController {
     private final UserService userService;
+    private final UserRepository userRepository;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/me")
@@ -34,6 +38,12 @@ public class UserController {
     public ResponseEntity<List<User>> allUsers() {
         List <User> users = userService.allUsers();
 
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/90")
+    public ResponseEntity<List<User>> getAfterNineties(){
+        List <User> users = userRepository.findAllUserCreatedAfterTheNineties();
         return ResponseEntity.ok(users);
     }
 }

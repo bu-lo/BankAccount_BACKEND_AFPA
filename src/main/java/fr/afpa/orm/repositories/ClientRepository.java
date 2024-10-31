@@ -14,7 +14,7 @@ import fr.afpa.orm.entities.Client;
 
 // Déclaration du repository, récupération des méthodes CRUD grâce à l'interface CrudRepository
 @Repository
-public interface ClientRepository extends CrudRepository<Client,UUID> { //DAO
+public interface ClientRepository extends CrudRepository<Client, UUID> { //DAO
 }
 
 // TYPE DE LA CLEF PRIMAIRE, ICI UUID // ID

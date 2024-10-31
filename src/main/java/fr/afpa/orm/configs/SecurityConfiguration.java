@@ -3,6 +3,7 @@ package fr.afpa.orm.configs;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -30,6 +31,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(Customizer.withDefaults()) //.CORS *******************************
                 .csrf(csrf -> csrf.disable()) // Désactiver CSRF
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/**").permitAll() // Autoriser les requêtes sur "/auth/**"
@@ -48,9 +50,10 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:8000"));
-        configuration.setAllowedMethods(List.of("GET", "POST"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        configuration.setAllowedHeaders(List.of("Content-Type", "Authorization", "Accept"));
+        configuration.setAllowedMethods(List.of("HEAD", "OPTIONS", "GET", "POST", "PUT", "DELETE"));
+        configuration.setExposedHeaders(List.of("Access_token", "refresh_token", "Access-Control-Allow-Origin"));
+        configuration.setAllowedOrigins(List.of("*"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 

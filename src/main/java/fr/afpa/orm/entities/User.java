@@ -12,16 +12,20 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Date;
 
-
-@Table(name = "user")
+/**
+ * Classe représentant un utilisateur en lien avec une table "user" de la base de données.
+ * 
+ * Info : le nom de la table a été mis entre guillemets car c'est un mot réserver SQL (possible que ça marche sans selon CB) 
+ */
 @Entity
+@Table(name = "\"user\"")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "full_name")
     private String fullName;
 
     @Column(unique = true, length = 100, nullable = false)

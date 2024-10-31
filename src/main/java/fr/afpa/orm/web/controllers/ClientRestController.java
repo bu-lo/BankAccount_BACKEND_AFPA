@@ -71,14 +71,14 @@ public class ClientRestController {
         for (Client client : clients) {
             List<Account>accounts = client.getAccounts();
             List<Insurance>insurances= client.getInsurances();
-            List<Long>account_ids= accounts.stream()
-                .map(Account::getId)
+            List<Double>account_balance= accounts.stream()
+                .map(Account::getBalance)
                 .collect(Collectors.toList());
             String insuranceType = insurances.stream()
                 .map(insurance -> insurance.getName().name())
                 .collect(Collectors.joining(", "));
 
-            ClientDto clientDto = new ClientDto(client.getId(), client.getFirstName(), client.getLastName(), client.getEmail(), client.getBirthdate(), account_ids, insuranceType);
+            ClientDto clientDto = new ClientDto(client.getId(), client.getFirstName(), client.getLastName(), client.getEmail(), client.getBirthdate(), account_balance, insuranceType);
             clientDtos.add(clientDto);
         }
 
@@ -106,14 +106,14 @@ public class ClientRestController {
             Client client = clientOptional.get();
             List<Account>accounts = client.getAccounts();
             List<Insurance>insurances= client.getInsurances();
-            List<Long>account_ids= accounts.stream()
-                .map(Account::getId)
+            List<Double>account_balance= accounts.stream()
+                .map(Account::getBalance)
                 .collect(Collectors.toList());
             String insuranceType = insurances.stream()
                 .map(insurance -> insurance.getName().name())
                 .collect(Collectors.joining(", "));
 
-            ClientDto clientDto = new ClientDto(client.getId(), client.getFirstName(), client.getLastName(), client.getEmail(), client.getBirthdate(), account_ids, insuranceType);
+            ClientDto clientDto = new ClientDto(client.getId(), client.getFirstName(), client.getLastName(), client.getEmail(), client.getBirthdate(), account_balance, insuranceType);
             return new ResponseEntity<>(clientDto,HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

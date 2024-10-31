@@ -32,9 +32,9 @@ public class AuthenticationService {
 
     public User signup(RegisterUserDto input) {
         User user = new User();
-                user.setFullName(input.fullName());
-                user.setEmail(input.email());
-                user.setPassword(passwordEncoder.encode(input.password()));
+        user.setFullName(input.fullName());
+        user.setEmail(input.email());
+        user.setPassword(passwordEncoder.encode(input.password()));
 
         return userRepository.save(user);
     }
